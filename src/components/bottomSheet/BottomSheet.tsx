@@ -93,6 +93,7 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
       handleHeight: _providedHandleHeight,
       containerHeight: _providedContainerHeight,
       topInset = 0,
+      bottomInset = 0,
       enableContentPanningGesture = DEFAULT_ENABLE_CONTENT_PANNING_GESTURE,
       enableHandlePanningGesture = DEFAULT_ENABLE_HANDLE_PANNING_GESTURE,
       animateOnMount = DEFAULT_ANIMATE_ON_MOUNT,
@@ -440,13 +441,13 @@ const BottomSheetComponent = forwardRef<BottomSheet, BottomSheetProps>(
           {
             translateY: cond(
               animatedIsLayoutReady,
-              position,
+              sub(position, bottomInset),
               safeContainerHeight
             ),
           },
         ],
       }),
-      [safeContainerHeight, position, animatedIsLayoutReady]
+      [safeContainerHeight, position, animatedIsLayoutReady, bottomInset]
     );
     const contentContainerStyle = useMemo(
       () => ({
